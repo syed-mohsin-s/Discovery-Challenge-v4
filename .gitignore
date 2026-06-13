@@ -1,0 +1,27 @@
+# Python environment
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# Large datasets
+candidates.jsonl
+candidates.jsonl.gz
+sample_candidates.json
+
+# Model caches and checkpoints
+model_cache/
+.ipynb_checkpoints/
+
+# IDE files
+.vscode/
+.idea/
+
+# Documents (keep them local, don't push to GitHub repo)
+*.docx
+
+# Submission output files
+team_cache_Q.csv

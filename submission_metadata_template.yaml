@@ -1,0 +1,49 @@
+# ============================================================================
+# Team Identity Configuration Matrix
+# ============================================================================
+team_name: "cache_Q"
+primary_contact:
+  name: "Syed Mohsin Naina S"
+  email: "syedmohsinnaina@gmail.com"
+  phone: "+91-7448335850"
+
+team_members:
+  - name: "Syed Mohsin Naina S"
+    email: "syedmohsinnaina@gmail.com"
+    role: "ML Engineer"
+
+# ============================================================================
+# Code execution & verification parameters
+# ============================================================================
+github_repo: "https://github.com/syed-mohsin-s/Discovery-Challenge-v4"
+sandbox_link: "https://huggingface.co/spaces/syed-mohsin-s/redrob-ranker"
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl.gz --out ./team_cache_Q.csv"
+
+runtime_environment:
+  interpreter: "python 3.11"
+  os: "linux"
+  hardware_summary: "16GB RAM, CPU-only execution sandbox"
+
+ai_tools_declared:
+  - "Claude"
+  - "Gemini"
+
+methodology_summary: |
+  An advanced multi-signal discovery ranker optimized via lazy-inference early stopping 
+  pruning bounds. Employs rigorous structural gates countering synthetic honeypot 
+  profiles alongside categorical filters map-reducing service industry records. 
+  Incorporates explicit candidate availability indexing matrices across 9 distinct 
+  behavioral signals with exact word boundary controls.
+
+# ============================================================================
+# Declarations (Bug 8 Alignment Complete)
+# ============================================================================
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  pre_computation_required: true
+  pre_computation_time_minutes: 5
+  reproduction_tested: true
