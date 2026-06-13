@@ -16,7 +16,7 @@ team_members:
 # Code execution & verification parameters
 # ============================================================================
 github_repo: "https://github.com/syed-mohsin-s/Discovery-Challenge-v4"
-sandbox_link: "https://huggingface.co/spaces/syed-mohsin-s/redrob-ranker"
+sandbox_link: "https://huggingface.co/spaces/syedmohsin7/redrob-ranker"
 
 reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./team_cache_Q.csv"
 
