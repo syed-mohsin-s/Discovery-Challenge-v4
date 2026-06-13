@@ -1,0 +1,66 @@
+# ============================================================================
+# Team Identity Configuration Matrix
+# ============================================================================
+team_name: "cache_Q"
+primary_contact:
+  name: "Syed Mohsin Naina S"
+  email: "syedmohsinnaina@gmail.com"
+  phone: "+91-7448335850"
+
+team_members:
+  - name: "Syed Mohsin Naina S"
+    email: "syedmohsinnaina@gmail.com"
+    role: "ML Engineer"
+
+# ============================================================================
+# Code execution & verification parameters
+# ============================================================================
+github_repo: "https://github.com/syed-mohsin-s/Discovery-Challenge-v4"
+sandbox_link: "https://huggingface.co/spaces/syed-mohsin-s/redrob-ranker"
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./team_cache_Q.csv"
+
+runtime_environment:
+  interpreter: "python 3.10+"
+  os: "linux"
+  hardware_summary: "16GB RAM, CPU-only execution sandbox"
+
+ai_tools_declared:
+  - "Claude"
+  - "Gemini"
+
+methodology_summary: |
+  5-stage streaming ranking pipeline optimized for the Senior AI Engineer JD.
+  Stage 1: Gated filtering with deterministic honeypot detection (skills inflation,
+  temporal paradox, zero-duration expert) plus title and industry gates.
+  Stage 2: Technical scoring via skill intersection (7 core ML pillars), experience
+  curve (5-9 YOE peak), execution context (production verbs vs wrapper buzzwords),
+  and education tier bonuses.
+  Stage 3: Semantic re-ranking using all-MiniLM-L6-v2 embeddings with lazy batch
+  inference and early-stopping pruning. Multi-signal behavioral calibration matrix
+  incorporating 16 of 23 Redrob platform signals including temporal decay, recruiter
+  response rate, notice period, geography, GitHub activity, skill assessments,
+  offer acceptance, interview completion, profile completeness, recruiter saves,
+  response speed, profile trust, work mode alignment, market visibility, and
+  active job-seeking indicators.
+  Stage 4: Monotonic aggregation with deterministic tie-breaking (candidate_id
+  ascending) and JD-specific reasoning generation referencing core skill matches,
+  career depth, and honest concerns.
+  Stage 5: Format validation via validate_submission.py.
+
+approach:
+  scoring_formula: "Score_final = (S_base + 0.30 × semantic_similarity) × M_behavior"
+  model_used: "all-MiniLM-L6-v2 (SentenceTransformer, CPU inference, ~80MB)"
+  wall_clock_actual: "~38 seconds on standard CPU"
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  pre_computation_required: true
+  pre_computation_time_minutes: 5
+  reproduction_tested: true
