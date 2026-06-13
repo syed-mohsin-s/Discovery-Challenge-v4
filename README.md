@@ -1,3 +1,15 @@
+---
+title: Redrob Ranker
+emoji: 🏢
+colorFrom: yellow
+colorTo: indigo
+sdk: gradio
+sdk_version: 6.18.0
+python_version: '3.13'
+app_file: app.py
+pinned: false
+---
+
 # Sentinel-AI — Team `cache_Q`
 
 > High-throughput candidate ranking pipeline for the RedRob AI Talent Search Challenge.
@@ -6,7 +18,7 @@
 
 This repository contains a **production-ready, zero-network-dependency** Python pipeline that:
 
-1. **Streams** 100,000 candidate profiles from a gzipped JSON Lines file
+1. **Streams** 100,000 candidate profiles from a JSON Lines file
 2. **Filters** adversarial honeypot profiles using deterministic arithmetic checks
 3. **Scores** candidates with a composite technical + behavioral ranking matrix
 4. **Exports** a perfectly formatted, monotonically non-increasing CSV of the top 100 candidates
@@ -26,12 +38,12 @@ pip install -r requirements.txt
 ### 2. Run the Pipeline
 
 ```bash
-python rank.py --candidates ./candidates.jsonl.gz --out ./team_cache_Q.csv
+python rank.py --candidates ./candidates.jsonl --out ./team_cache_Q.csv
 ```
 
 | Argument        | Default                  | Description                              |
 |-----------------|--------------------------|------------------------------------------|
-| `--candidates`  | `candidates.jsonl.gz`    | Path to gzipped JSONL candidate dataset  |
+| `--candidates`  | `candidates.jsonl`       | Path to JSONL candidate dataset          |
 | `--out`         | `team_cache_Q.csv`       | Output CSV file path                     |
 
 ### 3. Validate Output
@@ -62,52 +74,52 @@ Scores are sorted **descending**; ties are broken by `candidate_id` in **ascendi
 ## Pipeline Architecture
 
 ```
-candidates.jsonl.gz
+candidates.jsonl
         │
         ▼
-┌─────────────────────────────────────┐
-│  STAGE 1: Gated Streaming Filter   │
-│  • Honeypot arithmetic checker      │
-│  • Title adjacency guard            │
-│  • Industry verification layer      │
-└──────────────┬──────────────────────┘
-               │ surviving candidates
-               ▼
-┌─────────────────────────────────────┐
-│  STAGE 2: Technical Scoring        │
-│  • Experience curve mapping         │
-│  • Core skill intersection          │
-│  • Execution context scoring        │
-└──────────────┬──────────────────────┘
-               │ S_tech
-               ▼
-┌─────────────────────────────────────┐
-│  STAGE 3: Behavioral Calibration   │
-│  • Temporal inactivity decay        │
-│  • Response rate index              │
-│  • Notice period alignment          │
-│  • Geographic weighting             │
-│  • GitHub velocity scoring          │
-│  • Assessment validation            │
-└──────────────┬──────────────────────┘
-               │ M_behavior
-               ▼
-┌─────────────────────────────────────┐
-│  STAGE 4: Aggregation & Reasoning  │
-│  Score_final = S_tech × M_behavior  │
-│  Sort → Top 100 → Rank → Explain   │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│  STAGE 5: Validation & Export      │
-│  • Format check                     │
-│  • Monotonicity assertion           │
-│  • validate_submission() gate       │
-└─────────────────────────────────────┘
-               │
-               ▼
-        team_cache_Q.csv
+ ┌─────────────────────────────────────┐
+ │  STAGE 1: Gated Streaming Filter   │
+ │  • Honeypot arithmetic checker      │
+ │  • Title adjacency guard            │
+ │  • Industry verification layer      │
+ └──────────────┬──────────────────────┘
+                │ surviving candidates
+                ▼
+ ┌─────────────────────────────────────┐
+ │  STAGE 2: Technical Scoring        │
+ │  • Experience curve mapping         │
+ │  • Core skill intersection          │
+ │  • Execution context scoring        │
+ └──────────────┬──────────────────────┘
+                │ S_tech
+                ▼
+ ┌─────────────────────────────────────┐
+ │  STAGE 3: Behavioral Calibration   │
+ │  • Temporal inactivity decay        │
+ │  • Response rate index              │
+ │  • Notice period alignment          │
+ │  • Geographic weighting             │
+ │  • GitHub velocity scoring          │
+ │  • Assessment validation            │
+ └──────────────┬──────────────────────┘
+                │ M_behavior
+                ▼
+ ┌─────────────────────────────────────┐
+ │  STAGE 4: Aggregation & Reasoning  │
+ │  Score_final = S_tech × M_behavior  │
+ │  Sort → Top 100 → Rank → Explain   │
+ └──────────────┬──────────────────────┘
+                │
+                ▼
+ ┌─────────────────────────────────────┐
+ │  STAGE 5: Validation & Export      │
+ │  • Format check                     │
+ │  • Monotonicity assertion           │
+ │  • validate_submission() gate       │
+ └─────────────────────────────────────┘
+                │
+                ▼
+         team_cache_Q.csv
 ```
 
 ---
@@ -117,10 +129,11 @@ candidates.jsonl.gz
 ```
 rehob.ai/
 ├── rank.py                              # Main pipeline script
+├── app.py                               # Gradio UI for HuggingFace Spaces
 ├── requirements.txt                     # Pinned Python dependencies
 ├── submission_metadata.yaml             # Challenge metadata declarations
 ├── validate_submission.py               # Provided submission validator
-├── candidates.jsonl.gz                  # Input dataset (not committed)
+├── candidates.jsonl                     # Input dataset (not committed)
 ├── team_cache_Q.csv                     # Output submission (generated)
 └── README.md                            # This file
 ```
