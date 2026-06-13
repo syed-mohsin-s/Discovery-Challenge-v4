@@ -168,8 +168,16 @@ def generate_reasoning(
     loc_lower = location.lower()
     is_pune_noida = "pune" in loc_lower or "noida" in loc_lower
     in_india = any(c in loc_lower for c in [
-        "pune", "noida", "bangalore", "bengaluru", "hyderabad", "mumbai",
-        "delhi", "gurgaon", "chennai", "kolkata", "india"
+        "india", "pune", "noida", "bangalore", "bengaluru", "hyderabad", "mumbai",
+        "delhi", "gurgaon", "chennai", "kolkata", "chandigarh", "indore", "bhubaneswar",
+        "vizag", "visakhapatnam", "kochi", "trivandrum", "coimbatore", "ahmedabad",
+        "jaipur", "lucknow", "patna", "bhopal", "nagpur", "surat", "thiruvananthapuram",
+        "andhra pradesh", "arunachal pradesh", "assam", "bihar", "chhattisgarh", "goa",
+        "gujarat", "haryana", "himachal pradesh", "jharkhand", "karnataka", "kerala",
+        "madhya pradesh", "maharashtra", "manipur", "meghalaya", "mizoram", "nagaland",
+        "odisha", "punjab", "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura",
+        "uttar pradesh", "uttarakhand", "west bengal", "puducherry", "lakshadweep",
+        "ladakh", "jammu", "kashmir"
     ])
 
     # ── Part 1: Opening sentence — rank-appropriate, includes specific facts ──
