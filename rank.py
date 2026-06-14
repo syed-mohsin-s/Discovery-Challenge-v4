@@ -651,7 +651,6 @@ def main():
     # ── STAGE 1: Streaming Gated Filtering ──
     print("\n[STAGE 1] Running streaming filter gates...")
     surviving_records = []
-    filtered_out_records = []
     total_read, filtered_honeypot, filtered_title, filtered_industry = 0, 0, 0, 0
     
     with _open_input(input_file) as f:
@@ -666,35 +665,13 @@ def main():
             except json.JSONDecodeError: continue
             
             total_read += 1
-            if is_honeypot(record):
-                filtered_honeypot += 1
-                record["_filtered_penalty"] = True
-                filtered_out_records.append(record)
-                continue
-            if not has_valid_title(record):
-                filtered_title += 1
-                record["_filtered_penalty"] = True
-                filtered_out_records.append(record)
-                continue
-            if not passes_industry_filter(record):
-                filtered_industry += 1
-                record["_filtered_penalty"] = True
-                filtered_out_records.append(record)
-                continue
+            if is_honeypot(record): filtered_honeypot += 1; continue
+            if not has_valid_title(record): filtered_title += 1; continue
+            if not passes_industry_filter(record): filtered_industry += 1; continue
             
             surviving_records.append(record)
             
-    print(f"  Total records read: {total_read:,}")
-    print(f"  Filtered by honeypot: {filtered_honeypot:,}")
-    print(f"  Filtered by title: {filtered_title:,}")
-    print(f"  Filtered by industry: {filtered_industry:,}")
     print(f"  Surviving records pool size: {len(surviving_records):,}")
-    
-    if len(surviving_records) < TOP_K:
-        needed = TOP_K - len(surviving_records)
-        print(f"  [WARNING] Only {len(surviving_records)} survived filtering. Padding with {min(needed, len(filtered_out_records))} filtered records to meet TOP_K={TOP_K}.")
-        surviving_records.extend(filtered_out_records[:needed])
-        
     if len(surviving_records) == 0:
         raise RuntimeError("FATAL: Zero candidates survived filtering.")
 
@@ -716,12 +693,6 @@ def main():
         
         m_behavior = compute_m_behavior(rec)
         score_max = s_tech_max * m_behavior
-        
-        if rec.get("_filtered_penalty"):
-            s_base *= 0.0001
-            m_behavior *= 0.0001
-            score_max *= 0.0001
-            
         candidate_id = str(rec.get("candidate_id", f"UNKNOWN_{idx}"))
         
         candidates_bound_pool.append({
