@@ -282,7 +282,10 @@ def generate_reasoning(
             parts.append(f"Concerns: {conc_str}")
 
     if parts:
-        detail_sentence = ". ".join(p.capitalize() if i == 0 and not p[0].isupper() else p for i, p in enumerate(parts)) + "."
+        detail_sentence = ". ".join(
+            (p[0].upper() + p[1:] if i == 0 and p and not p[0].isupper() else p)
+            for i, p in enumerate(parts)
+        ) + "."
     else:
         detail_sentence = f"Engagement signals are neutral; {notice_days}-day notice period."
 
@@ -444,14 +447,15 @@ def compute_execution_context(record: dict) -> float:
 
 def compute_education_bonus(record: dict) -> float:
     """Missing Signal Integration: Maps additive credential tier bonuses."""
+    best = 0.0
     for edu in record.get("education", []):
         if isinstance(edu, dict):
             tier = str(edu.get("tier", "")).lower().strip()
             if tier == "tier_1":
-                return 0.05
-            if tier == "tier_2":
-                return 0.02
-    return 0.0
+                best = max(best, 0.05)
+            elif tier == "tier_2":
+                best = max(best, 0.02)
+    return best
 
 def build_candidate_text(record: dict) -> str:
     """Bug 1 Fix: Sorts career timelines chronologically using the is_current flag."""
@@ -773,7 +777,7 @@ def main():
             has_ranking_exp = any(kw in career_texts for kw in CAREER_DEPTH_KEYWORDS)
             
             # Check if company is a known product company
-            is_product_co = company.lower().strip() in PRODUCT_COMPANIES
+            is_product_co = any(name in company.lower() for name in PRODUCT_COMPANIES)
             
             fully_evaluated.append({
                 "candidate_id": item["candidate_id"],
