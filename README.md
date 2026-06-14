@@ -35,7 +35,13 @@ All processing completes on a standard CPU within a **5-minute wall-clock budget
 pip install -r requirements.txt
 ```
 
-### 2. Run the Pipeline
+### 2. Download Model Cache (For Offline Execution)
+
+```bash
+python download_model.py
+```
+
+### 3. Run the Pipeline
 
 ```bash
 python rank.py --candidates ./candidates.jsonl --out ./team_cache_Q.csv
@@ -46,7 +52,7 @@ python rank.py --candidates ./candidates.jsonl --out ./team_cache_Q.csv
 | `--candidates`  | `candidates.jsonl`       | Path to JSONL candidate dataset          |
 | `--out`         | `team_cache_Q.csv`       | Output CSV file path                     |
 
-### 3. Validate Output
+### 4. Validate Output
 
 The pipeline automatically invokes `validate_submission.py` at the end of execution. You can also run it independently:
 
