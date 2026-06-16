@@ -11,6 +11,10 @@ team_members:
   - name: "Syed Mohsin Naina S"
     email: "syedmohsinnaina@gmail.com"
     role: "ML Engineer"
+    
+  - name: "Varun S"
+    email: "varunvarunbala2809@gmail.com"
+    role: "Data Engineer"
 
 # ============================================================================
 # Code execution & verification parameters
